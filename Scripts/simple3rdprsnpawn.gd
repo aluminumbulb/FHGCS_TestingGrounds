@@ -10,6 +10,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 enum moveTypes {EIGHT_DIR, TANK}
 @export var currMoveType = moveTypes.EIGHT_DIR
 
+enum rotTypes {KEYS, MOUSE}
+@export var currRotationType = rotTypes.KEYS
+
 @onready var camera = $SpringArm3D/Camera3D
 
 func _ready():
@@ -24,25 +27,32 @@ func _physics_process(delta):
 	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		#velocity.y = JUMP_VELOCITY
 
+	#Translation Methods
 	#matches to appropriate movement type
 	match currMoveType:
 		moveTypes.EIGHT_DIR:
-			eight_dir_no_turn(delta)
+			eight_dir(delta)
 		moveTypes.TANK:
-			two_dir_tank_turn(delta)
-
+			two_dir_tank(delta)
+	
+	#Rotation Methods
+	match currRotationType:
+		rotTypes.KEYS:
+			key_based_rotation(delta)
+		rotTypes.MOUSE:
+			mouse_based_rotation(delta)
+	
 	move_and_slide()
-
-func get_input_dir_by_user_input(delta)->Vector3:
+	
+func get_input_dir_by_user_input()->Vector3:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("uin-left", "uin-right", "uin-forward", "uin-back")
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	return direction
 
-
-func eight_dir_no_turn(delta):
-	var inp_dir = get_input_dir_by_user_input(delta)
+func eight_dir(delta):
+	var inp_dir = get_input_dir_by_user_input()
 
 	if inp_dir:
 		inp_dir = (basis * inp_dir)
@@ -55,13 +65,23 @@ func eight_dir_no_turn(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta)
 		velocity.z = move_toward(velocity.z, 0, SPEED * delta)
 
-func two_dir_tank_turn(delta):
-	var inp_dir = get_input_dir_by_user_input(delta)
+func two_dir_tank(delta):
+	var inp_dir = get_input_dir_by_user_input()
+	
 	if inp_dir:
 		velocity = basis.z * inp_dir.z
-		#mostly using inp_dir.x as a signal more than a value
-		rotation.y -= inp_dir.x * ANG_SPEED * delta
 	
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta)
 		velocity.z = move_toward(velocity.z, 0, SPEED * delta)
+
+func mouse_based_rotation(delta):
+	var mouse_vel = Input.get_last_mouse_velocity()
+	if mouse_vel.x>0:
+		rotation.y -= ANG_SPEED * delta
+	elif mouse_vel.x<0:
+		rotation.y += ANG_SPEED * delta
+
+func key_based_rotation(delta):
+	var inp_dir = get_input_dir_by_user_input()
+	rotation.y -= inp_dir.x * ANG_SPEED * delta

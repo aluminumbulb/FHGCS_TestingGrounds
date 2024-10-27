@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6ftb74i1i3md"]
+[gd_scene load_steps=6 format=3 uid="uid://drcedrd6secpk"]
 
 [ext_resource type="PackedScene" uid="uid://d0ncuauhmewln" path="res://Actors/simple3rdprsnpawn.tscn" id="1_s1usf"]
-[ext_resource type="Script" path="res://Actors/simple3rdprsnpawn.gd" id="2_8x3g4"]
+[ext_resource type="Script" path="res://Scripts/simple3rdprsnpawn.gd" id="2_0wp47"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_w1uhh"]
 
@@ -23,8 +23,9 @@ shape = SubResource("ConcavePolygonShape3D_3kb43")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_s1usf")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 1, 0)
-script = ExtResource("2_8x3g4")
+script = ExtResource("2_0wp47")
 currMoveType = 1
+currRotationType = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.339296, 0.94068, 0, -0.94068, 0.339296, 0, 3.21681, 0)
