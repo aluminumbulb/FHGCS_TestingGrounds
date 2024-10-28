@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0ncuauhmewln"]
+[gd_scene load_steps=4 format=3 uid="uid://d0ncuauhmewln"]
 
+[ext_resource type="Script" path="res://Scripts/simple3rdprsnpawn.gd" id="1_43ueh"]
 [ext_resource type="PackedScene" uid="uid://cgjgitcm28l4p" path="res://3dModels/3rdpersontemp.glb" id="1_rj2fc"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nb5um"]
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="PlayerAvatar" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.929938, 0)
+script = ExtResource("1_43ueh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_nb5um")
