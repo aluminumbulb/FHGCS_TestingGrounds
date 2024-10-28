@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq26dkbvts2yu"]
+[gd_scene load_steps=7 format=3 uid="uid://bm8t5mr74uq7v"]
 
-[ext_resource type="PackedScene" uid="uid://c4rr1nsg3lum3" path="res://Actors/3rdPrsnAviFree.tscn" id="1_jiud6"]
-[ext_resource type="PackedScene" uid="uid://dcp0p0kq2fik8" path="res://Actors/3rdPrsnAviTrack.tscn" id="2_l24fj"]
+[ext_resource type="PackedScene" uid="uid://c4rr1nsg3lum3" path="res://Actors/3rdPrsnAviTracked.tscn" id="1_jiud6"]
+[ext_resource type="PackedScene" uid="uid://dcp0p0kq2fik8" path="res://Actors/3rdPrsnFree.tscn" id="2_l24fj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snkdg"]
 albedo_color = Color(0.321569, 0.298039, 1, 1)
@@ -42,15 +42,14 @@ transform = Transform3D(1, 0, 0, 0, 0.339296, 0.94068, 0, -0.94068, 0.339296, 0,
 
 [node name="Avatars" type="Node" parent="."]
 
-[node name="TrackAvi" parent="Avatars" node_paths=PackedStringArray("initial_track") instance=ExtResource("1_jiud6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-initial_track = NodePath("../../Paths/Path3D")
-
 [node name="FreeMoveAvi" parent="Avatars" instance=ExtResource("2_l24fj")]
 visible = false
 script = null
 
-[node name="Paths" type="Node" parent="."]
-
-[node name="Path3D" type="Path3D" parent="Paths"]
+[node name="Path3D" type="Path3D" parent="Avatars"]
 curve = SubResource("Curve3D_l1et2")
+
+[node name="TrackAvi" parent="Avatars/Path3D" node_paths=PackedStringArray("initial_track") instance=ExtResource("1_jiud6")]
+initial_track = NodePath("..")
+
+[node name="Paths" type="Node" parent="."]

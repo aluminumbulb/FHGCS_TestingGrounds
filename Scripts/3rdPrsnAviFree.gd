@@ -47,8 +47,6 @@ func _physics_process(delta):
 	
 ## Returns an input vector for 4 input directions, normalized 
 func get_input_dir_by_user_input()->Vector3:
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("uin-left", "uin-right", "uin-forward", "uin-back")
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	return direction
