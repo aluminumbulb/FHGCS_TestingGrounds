@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dq26dkbvts2yu"]
+
+[ext_resource type="PackedScene" uid="uid://c4rr1nsg3lum3" path="res://Actors/3rdPrsnAviFree.tscn" id="1_jiud6"]
+[ext_resource type="PackedScene" uid="uid://dcp0p0kq2fik8" path="res://Actors/3rdPrsnAviTrack.tscn" id="2_l24fj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snkdg"]
+albedo_color = Color(0.321569, 0.298039, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_w1uhh"]
+material = SubResource("StandardMaterial3D_snkdg")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3kb43"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="Curve3D" id="Curve3D_l1et2"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="CharacterBody3DTestScene" type="Node3D"]
+
+[node name="StaticSet" type="Node" parent="."]
+
+[node name="TestRoom" type="Node" parent="StaticSet"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticSet/TestRoom"]
+transform = Transform3D(40, 0, 0, 0, -1.74846e-06, 1, 0, -40, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_w1uhh")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticSet/TestRoom/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticSet/TestRoom/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_3kb43")
+
+[node name="GlobalEffects" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GlobalEffects"]
+transform = Transform3D(1, 0, 0, 0, 0.339296, 0.94068, 0, -0.94068, 0.339296, 0, 3.21681, 0)
+
+[node name="Avatars" type="Node" parent="."]
+
+[node name="TrackAvi" parent="Avatars" node_paths=PackedStringArray("initial_track") instance=ExtResource("1_jiud6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+initial_track = NodePath("../../Paths/Path3D")
+
+[node name="FreeMoveAvi" parent="Avatars" instance=ExtResource("2_l24fj")]
+visible = false
+script = null
+
+[node name="Paths" type="Node" parent="."]
+
+[node name="Path3D" type="Path3D" parent="Paths"]
+curve = SubResource("Curve3D_l1et2")
