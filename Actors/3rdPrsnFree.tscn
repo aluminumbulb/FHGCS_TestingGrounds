@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcp0p0kq2fik8"]
+[gd_scene load_steps=4 format=3 uid="uid://da3oevfoxkbcw"]
 
-[ext_resource type="Script" path="res://Scripts/3rdPrsnAviFree.gd" id="1_u5fl4"]
+[ext_resource type="Script" path="res://Scripts/3rdPersonControllers/3rdPrsnAviFree.gd" id="1_61wjs"]
 [ext_resource type="PackedScene" uid="uid://cgjgitcm28l4p" path="res://3dModels/3rdpersontemp.glb" id="2_3tvww"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nb5um"]
 
 [node name="FreeAvi" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.929938, 0)
-script = ExtResource("1_u5fl4")
+script = ExtResource("1_61wjs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_nb5um")

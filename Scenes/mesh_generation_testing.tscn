@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://dll3dargpgbij"]
+
+[ext_resource type="Script" path="res://Scripts/TerrainGenerator.gd" id="1_posgv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wugvm"]
+sky_top_color = Color(0, 0.517647, 0.490196, 1)
+sky_horizon_color = Color(0.5, 0.629412, 0.622549, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.5, 0.629412, 0.622549, 1)
+
+[sub_resource type="Sky" id="Sky_113wc"]
+sky_material = SubResource("ProceduralSkyMaterial_wugvm")
+
+[sub_resource type="Environment" id="Environment_82ygg"]
+background_mode = 2
+sky = SubResource("Sky_113wc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tsips"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1chla"]
+
+[node name="MeshGenerationTesting" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_82ygg")
+
+[node name="TerrainGenerator" type="Node" parent="."]
+script = ExtResource("1_posgv")
+noise = SubResource("FastNoiseLite_tsips")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.595889, 0.803067, 0, -0.803067, 0.595889, -0.362056, 24.1656, 16.5784)
+fov = 105.624
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.00127403, 0.999999, 0, -0.999999, -0.00127403, 0, 6.11254, 0)
+
+[node name="DummyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("QuadMesh_1chla")

@@ -1,13 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bm8t5mr74uq7v"]
 
-[ext_resource type="PackedScene" uid="uid://c4rr1nsg3lum3" path="res://Actors/3rdPrsnAviTracked.tscn" id="1_jiud6"]
-[ext_resource type="PackedScene" uid="uid://dcp0p0kq2fik8" path="res://Actors/3rdPrsnFree.tscn" id="2_l24fj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snkdg"]
-albedo_color = Color(0.321569, 0.298039, 1, 1)
+[ext_resource type="Material" uid="uid://bsa4rkincq13r" path="res://Materials/basic_floor.tres" id="1_6iodh"]
+[ext_resource type="PackedScene" uid="uid://cos0ncnujfhlp" path="res://Actors/3rdPrsnAviTracked.tscn" id="1_jiud6"]
+[ext_resource type="PackedScene" uid="uid://da3oevfoxkbcw" path="res://Actors/3rdPrsnFree.tscn" id="2_l24fj"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_w1uhh"]
-material = SubResource("StandardMaterial3D_snkdg")
+material = ExtResource("1_6iodh")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3kb43"]
 data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
@@ -50,6 +48,7 @@ script = null
 curve = SubResource("Curve3D_l1et2")
 
 [node name="TrackAvi" parent="Avatars/Path3D" node_paths=PackedStringArray("initial_track") instance=ExtResource("1_jiud6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 initial_track = NodePath("..")
 
 [node name="Paths" type="Node" parent="."]
