@@ -10,6 +10,8 @@ var mat = preload("res://Materials/basic_floor.tres")
 @export var noise: FastNoiseLite
 @export var height_multiplier = 50
 
+#TODO: Preload a single test prefab
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate()
@@ -31,9 +33,9 @@ func generate():
 	var array_plane = st.commit()
 	data.create_from_surface(array_plane, 0)
 	
-	#Iterating through every array
+	#Iterating through every vertex in array
 	for i in range(data.get_vertex_count()):
-		var vertex = alter_vertex(data.get_vertex(i))
+		var vertex = access_vertex(data.get_vertex(i)) 
 		data.set_vertex(i, vertex)
 	
 	array_plane.clear_surfaces() #clear data from plane?
@@ -60,8 +62,12 @@ func generate():
 	#instantiate
 	add_child(mesh)
 	
-func alter_vertex(vert: Vector3)->Vector3:
-	vert.y = get_noise_y (vert.x, vert.z)
+	## Primary Access point for verteces
+	#Called from Generate
+func access_vertex(vert: Vector3)->Vector3:
+	#Generate Noise
+	#vert.y = get_noise_y (vert.x, vert.z)
+	
 	return vert
 
 func get_noise_y (x, z)->float:
